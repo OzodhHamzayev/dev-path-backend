@@ -41,7 +41,7 @@ func CheckJWTToken(ctx *gin.Context) {
 		ctx.Abort()
 		return
 	}
-	tokenString := parts[0]
+	tokenString := parts[1]
 
 	token, err :=jwt.Parse(tokenString, func(token *jwt.Token) (any, error) {
 		if token.Method.Alg() != jwt.SigningMethodHS256.Alg() {

@@ -93,6 +93,7 @@ func Login(ctx *gin.Context) {
 
 
 	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"user_id": user.ID,
 		"name":  user.Name,
 		"exp":   time.Now().Add(time.Hour * 24).Unix(),
 		"email": user.Email,

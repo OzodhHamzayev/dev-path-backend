@@ -9,7 +9,7 @@ import (
 )
 
 
-func RequeireAdmin(ctx *gin.Context) { 
+func RequireAdmin(ctx *gin.Context) { 
 	id, exists := ctx.Get("userID")
 	if !exists {
 	    ctx.JSON(http.StatusUnauthorized, gin.H{

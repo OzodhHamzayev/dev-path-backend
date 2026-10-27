@@ -31,16 +31,17 @@ func main() {
 
 	c.Next()
 })
-	admin := r.Group("/api/admin")
-	admin.Use(middleware.CheckJWTToken)
-	admin.Use(middleware.RequeireAdmin)
 
 	r.POST("/api/auth/register", auth.Register)
 	r.POST("/api/auth/login", auth.Login)
 
-	admin.POST("/api/admin/courses", courses.CreateCourse)
-	admin.DELETE("/api/admin/courses/:id", courses.DeleteCourse)
-	admin.PUT("/api/admin/courses/:id", courses.UpdateCourse)
-	admin.GET("/api/admin/courses", courses.GetAllCourses)
+	admin := r.Group("/api/admin")
+	admin.Use(middleware.CheckJWTToken)
+	admin.Use(middleware.RequireAdmin)
+
+	admin.POST("/courses", courses.CreateCourse)
+	admin.GET("/courses", courses.GetAllCourses)
+	admin.PUT("/courses/:id", courses.UpdateCourse)
+	admin.DELETE("/courses/:id", courses.DeleteCourse)
 	r.Run()
 }
