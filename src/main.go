@@ -37,6 +37,7 @@ func main() {
 	r.POST("/api/auth/login", auth.Login)
 	r.GET("api//courses", courses.GetAllCourses)
 	r.GET("/api/courses/:id", courses.GetCourseById) 	
+	r.POST("/api/orders")
 
 	admin := r.Group("/api/admin")
 	admin.Use(middleware.CheckJWTToken)
