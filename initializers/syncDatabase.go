@@ -10,5 +10,6 @@ func MigrateDatabase() {
 	DB.AutoMigrate(
 		&models.Users{},
 		&models.Courses{},
+		&models.Orders{},
 	)
 }

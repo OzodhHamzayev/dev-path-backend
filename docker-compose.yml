@@ -1,0 +1,31 @@
+services:
+  backend:
+    build: .
+    container_name: devpath-backend
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      DB: "host=postgres port=5432 user=postgres password=123456 dbname=devpath sslmode=disable"
+    depends_on:
+      - postgres
+    volumes:
+      - ./.env:/app/.env:ro
+
+
+  postgres:
+    image: postgres:16
+    container_name: devpath-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: devpath
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

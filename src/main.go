@@ -2,7 +2,7 @@ package main
 
 import (
 	"backend-dev-path/initializers"
-	"backend-dev-path/src/middleware"
+		"backend-dev-path/src/middleware"
 	"backend-dev-path/src/modules/auth"
 	"backend-dev-path/src/modules/courses"
 
@@ -30,18 +30,20 @@ func main() {
 	}
 
 	c.Next()
-})
+	})
+
 
 	r.POST("/api/auth/register", auth.Register)
 	r.POST("/api/auth/login", auth.Login)
+	r.GET("api//courses", courses.GetAllCourses)
 
 	admin := r.Group("/api/admin")
 	admin.Use(middleware.CheckJWTToken)
 	admin.Use(middleware.RequireAdmin)
 
 	admin.POST("/courses", courses.CreateCourse)
-	admin.GET("/courses", courses.GetAllCourses)
 	admin.PUT("/courses/:id", courses.UpdateCourse)
+	admin.GET("/courses", courses.GetAllCourses)
 	admin.DELETE("/courses/:id", courses.DeleteCourse)
 	r.Run()
 }
