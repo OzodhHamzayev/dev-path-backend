@@ -46,4 +46,6 @@ func CreateOrder(ctx *gin.Context) {
 	}
 
 	ctx.JSON(status, gin.H{"order": order})
-}
+
+	ctx.Next()
+} 
