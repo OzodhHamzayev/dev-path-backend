@@ -5,6 +5,7 @@ import (
 	"backend-dev-path/src/common/middleware"
 	"backend-dev-path/src/modules/auth"
 	"backend-dev-path/src/modules/courses"
+	"backend-dev-path/src/modules/enrollments"
 	"backend-dev-path/src/modules/orders"
 
 	"github.com/gin-gonic/gin"
@@ -39,6 +40,9 @@ func main() {
 	r.GET("api//courses", courses.GetAllCourses)
 	r.GET("/api/courses/:id", courses.GetCourseById) 	
 	r.POST("/api/orders", middleware.CheckJWTToken, orders.CreateOrder)
+	r.POST("/api/orders/:id/demo-confirm", middleware.CheckJWTToken, orders.ConfirmDemoOrder)
+	r.GET("/api/me/enrollments", middleware.CheckJWTToken, enrollments.GetUserCourseByID)
+
 
 	admin := r.Group("/api/admin")
 	admin.Use(middleware.CheckJWTToken)
