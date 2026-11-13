@@ -38,5 +38,4 @@ func RequireAdmin(ctx *gin.Context) {
 	}
 
 	ctx.Next()
-
 }

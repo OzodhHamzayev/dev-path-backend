@@ -11,5 +11,6 @@ func MigrateDatabase() {
 		&models.Users{},
 		&models.Courses{},
 		&models.Orders{},
+		&models.Enrollments{},
 	)
 }

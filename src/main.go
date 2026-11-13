@@ -2,9 +2,10 @@ package main
 
 import (
 	"backend-dev-path/initializers"
-		"backend-dev-path/src/middleware"
+	"backend-dev-path/src/common/middleware"
 	"backend-dev-path/src/modules/auth"
 	"backend-dev-path/src/modules/courses"
+	"backend-dev-path/src/modules/orders"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,7 +23,7 @@ func main() {
 	r.Use(func(c *gin.Context) {
 	c.Header("Access-Control-Allow-Origin", "http://localhost:5173")
 	c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
-	c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+	c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization, Idempotency-Key")
 
 	if c.Request.Method == "OPTIONS" {
 		c.AbortWithStatus(204)
@@ -37,7 +38,7 @@ func main() {
 	r.POST("/api/auth/login", auth.Login)
 	r.GET("api//courses", courses.GetAllCourses)
 	r.GET("/api/courses/:id", courses.GetCourseById) 	
-	r.POST("/api/orders")
+	r.POST("/api/orders", middleware.CheckJWTToken, orders.CreateOrder)
 
 	admin := r.Group("/api/admin")
 	admin.Use(middleware.CheckJWTToken)
