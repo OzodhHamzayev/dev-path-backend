@@ -19,6 +19,7 @@ func CreateCourse(ctx *gin.Context) {
 		Rating      float64    `json:"rating" binding:"min=0,max=5"`
 		Duration    int        `json:"duration" binding:"min=0"`
 		Instructor  string     `json:"instructor" binding:"max=50"`
+		ImageUrl    string     `json:"image_url"`
 	}
 
 
@@ -32,16 +33,19 @@ func CreateCourse(ctx *gin.Context) {
 	course := models.Courses{
 		Title: body.Title,
 		Description: body.Description,
-		Category: body.Title,
-		Level: body.Title,
+		Category: body.Category,
+		Level: body.Level,
 		Price: body.Price,
 		Rating: body.Rating,
 		Duration: body.Duration,
-		Instructor: body.Title,
+		Instructor: body.Instructor,
+		ImageUrl: body.ImageUrl,
+
 	}
+	
 
 	if err := initializers.DB.Create(&course).Error; err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{
+		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Failed to create",
 		})
 		return

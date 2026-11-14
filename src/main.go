@@ -44,10 +44,13 @@ func main() {
 	r.GET("/api/me/enrollments", middleware.CheckJWTToken, enrollments.GetUserCourseByID)
 
 
+	r.Static("/uploads", "./uploads")
+
 	admin := r.Group("/api/admin")
 	admin.Use(middleware.CheckJWTToken)
 	admin.Use(middleware.RequireAdmin)
 
+	admin.POST("/uploads", courses.UploadImage)
 	admin.POST("/courses", courses.CreateCourse)
 	admin.PUT("/courses/:id", courses.UpdateCourse)
 	admin.GET("/courses", courses.GetAllCourses)

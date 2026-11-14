@@ -11,4 +11,5 @@ type Courses struct {
 	Rating float64
 	Duration int
 	Instructor string
+	ImageUrl string
 }
